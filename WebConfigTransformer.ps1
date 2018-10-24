@@ -1,7 +1,7 @@
-﻿	Param(
-        
-        [String] $solution_dir ="c:\source\Accounting" , 
-        [String] $project_dir ="c:\source\Accounting\Accounting",
+﻿    Param(
+            
+        [String] $solution_dir ="C:\templates\gitstudy\Accounting" , 
+        [String] $project_dir ="C:\templates\gitstudy\Accounting\Accounting",
         [String] $output_path = "c:\buildOutput"
         )
        
