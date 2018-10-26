@@ -26,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -209,13 +210,12 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="web.Production.config" >
+    <Content Include="web.Production.config">
       <DependentUpon>Web.Config</DependentUpon>
-      </Content>
-    <Content Include="web.QA.config" >
+    </Content>
+    <Content Include="web.QA.config">
       <DependentUpon>Web.config</DependentUpon>
-      </Content>
-    
+    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -243,7 +243,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -256,12 +255,10 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
-
   <ItemGroup>
     <Environments Include="QA" />
     <Environments Include="Production" />
   </ItemGroup>
-  
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -297,6 +294,7 @@
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\MSBuild.Microsoft.VisualStudio.Web.targets.14.0.0.3\build\MSBuild.Microsoft.VisualStudio.Web.targets.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.Microsoft.VisualStudio.Web.targets.14.0.0.3\build\MSBuild.Microsoft.VisualStudio.Web.targets.props'))" />
+    <Error Condition="!Exists('..\packages\OctoPack.3.6.3\build\OctoPack.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OctoPack.3.6.3\build\OctoPack.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -304,15 +302,12 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
-
   <Target Name="AfterBuild">
-    <MakeDir Directories="$(PublishUrl)\TransformedConfigs"  />
+    <MakeDir Directories="$(PublishUrl)\TransformedConfigs" />
   </Target>
-  
   <UsingTask TaskName="TransformXml" AssemblyFile="$(SolutionDir)\packages\MSBuild.Microsoft.VisualStudio.Web_WebApplication.Targets.12.0.2\tools\VSToolsPath\Web\Microsoft.Web.Publishing.Tasks.dll" />
-
-  <Target Name="ConfigTransformations" AfterTargets="AfterBuild" >
-    <TransformXML Source="web.config" Transform="web.%(Environments.Identity).config" 
-                  Destination="$(PublishUrl)\TransformedConfigs\web.%(Environments.Identity).config" />
+  <Target Name="ConfigTransformations" AfterTargets="AfterBuild">
+    <TransformXML Source="web.config" Transform="web.%(Environments.Identity).config" Destination="$(PublishUrl)\TransformedConfigs\web.%(Environments.Identity).config" />
   </Target>
+  <Import Project="..\packages\OctoPack.3.6.3\build\OctoPack.targets" Condition="Exists('..\packages\OctoPack.3.6.3\build\OctoPack.targets')" />
 </Project>
